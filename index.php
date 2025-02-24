@@ -10,33 +10,50 @@ $result = curl_exec($ch);
 $data = json_decode($result, true);
 
 curl_close($ch);
-
-var_dump($data);
 ?>
 
 <head>
-    <title>La proxima pelicula de m Marvel</title>
+    <title>La próxima película de Marvel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="La proxima pelicula de Marvel">
-
+    <meta name="description" content="La próxima película de Marvel">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
 </head>
 
+<body>
+    <main>
+        <pre style="font-size: 8px; overflow:scroll; height: 100px;">
+            <?php var_dump($data); ?>
+        </pre>
 
-<main>
+        <section>
+            <img src="<?= $data["poster_url"]; ?>" width="300" alt="Poster de <?= $data["title"]; ?>" style="border-radius: 16px" />
+        </section>
 
-<pre style="font-size: 8px; overflow:scroll; height: 100px;">
-
-<?php var_dump($data); ?>
-</pre>
-
-<section>
-<img
-    src="<?= echo $data["poster_url"];
-
-    <h2>La proxima pelicula de Marvel</h2>
-    />
-</section>
-
-</main>
+        <hgroup>
+            <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> días</h3>
+            <p>Fecha de estreno: <?= $data["release_date"]; ?></p>
+            <p>La siguiente es: <?= $data["following_production"]["title"]; ?></p>
+        </hgroup>
+    </main>
+    <style>
+        :root {
+            color-scheme: light dark;
+     }
+        body {
+            display: flex;
+            place-content: center;
+        }
+        section{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        hgroup {
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+</style>
+    </body>
